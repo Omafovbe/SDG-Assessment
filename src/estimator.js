@@ -58,30 +58,32 @@ const Estimator = ({ data, factor }) => {
 
 
 const covid19ImpactEstimator = (data) => {
+  const impact = {};
+  const severeImpact = {};
   const impactEstimator = Estimator({ data, factor: 10 });
-  const severeImpactEstimator = Estimator({ data, factor: 50 });
+  const sImpactEstimator = Estimator({ data, factor: 50 });
 
-  // impact Estimation Object
-  const impact = {
-    currentylyInfected: impactEstimator.currentlyInfected(),
-    infectionsByRequestedTime: impactEstimator.infectionsByRequestedTime(),
-    severeCasesByRequestedTime: impactEstimator.severeCasesByRequestedTime(),
-    hospitalBedsByRequestedTime: impactEstimator.hospitalBedsByRequestedTime(),
-    casesForICUByRequestedTime: impactEstimator.casesForICUByRequestedTime(),
-    casesForVentilatorsByRequestedTime: impactEstimator.casesForVentByRequestedTime(),
-    dollarsInFlight: impactEstimator.dollarsInFlight()
-  };
+  impact.currentylyInfected = impactEstimator.currentlyInfected();
+  severeImpact.currentylyInfected = sImpactEstimator.currentlyInfected();
 
-  // Severe Impact estimation object
-  const severeImpact = {
-    currentylyInfected: severeImpactEstimator.currentlyInfected(),
-    infectionsByRequestedTime: severeImpactEstimator.infectionsByRequestedTime(),
-    severeCasesByRequestedTime: severeImpactEstimator.severeCasesByRequestedTime(),
-    hospitalBedsByRequestedTime: severeImpactEstimator.hospitalBedsByRequestedTime(),
-    casesForICUByRequestedTime: severeImpactEstimator.casesForICUByRequestedTime(),
-    casesForVentilatorsByRequestedTime: severeImpactEstimator.casesForVentByRequestedTime(),
-    dollarsInFlight: severeImpactEstimator.dollarsInFlight()
-  };
+  impact.infectionsByRequestedTime = impactEstimator.infectionsByRequestedTime();
+  severeImpact.infectionsByRequestedTime = sImpactEstimator.infectionsByRequestedTime();
+
+  impact.severeCasesByRequestedTime = impactEstimator.severeCasesByRequestedTime();
+  severeImpact.severeCasesByRequestedTime = sImpactEstimator.severeCasesByRequestedTime();
+
+  impact.hospitalBedsByRequestedTime = impactEstimator.hospitalBedsByRequestedTime();
+  severeImpact.hospitalBedsByRequestedTime = sImpactEstimator.hospitalBedsByRequestedTime();
+
+  impact.casesForICUByRequestedTime = impactEstimator.casesForICUByRequestedTime();
+  severeImpact.casesForICUByRequestedTime = sImpactEstimator.casesForICUByRequestedTime();
+
+  impact.casesForVentilatorsByRequestedTime = impactEstimator.casesForVentByRequestedTime();
+  severeImpact.casesForVentilatorsByRequestedTime = sImpactEstimator.casesForVentByRequestedTime();
+
+  impact.dollarsInFlight = impactEstimator.dollarsInFlight();
+  severeImpact.dollarsInFlight = sImpactEstimator.dollarsInFlight();
+
   return {
     data,
     estimate: {
