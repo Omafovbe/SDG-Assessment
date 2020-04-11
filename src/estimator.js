@@ -10,38 +10,38 @@ const Estimator = ({ data, factor }) => {
     // Determine the power factor by first reducing to days (if periodType is not in days)
     // Then divide by 3. For curretly infected persons doubles in 3 days
     if (data.periodType === 'days') {
-      powFactor = data.timeToElapse / 3;
+      powFactor = Math.trunc(data.timeToElapse / 3);
     } else
     if (data.periodType === 'weeks') {
-      powFactor = (data.timeToElapse * 7) / 3;
+      powFactor = Math.trunc((data.timeToElapse * 7) / 3);
     } else
     if (data.periodType === 'months') {
-      powFactor = (data.timeToElapse * 30) / 3;
+      powFactor = Math.trunc((data.timeToElapse * 30) / 3);
     }
 
-    return personsInfected * (2 ** Math.floor(powFactor));
+    return Math.trunc(personsInfected * (2 ** powFactor));
   };
 
   // Severe Cases function
-  const severeCasesByRequestedTime = () => infectionsByRequestedTime(factor) * 0.15;
+  const severeCasesByRequestedTime = () => Math.trunc(infectionsByRequestedTime(factor) * 0.15);
 
   // Hospital Beds Function
   const hospitalBedsByRequestedTime = () => {
     const severeCases = severeCasesByRequestedTime(factor);
-    return (data.totalHospitalBeds * 0.35) - severeCases;
+    return Math.trunc((data.totalHospitalBeds * 0.35) - severeCases);
   };
 
   // ICU function
-  const casesForICUByRequestedTime = () => infectionsByRequestedTime(factor) * 0.05;
+  const casesForICUByRequestedTime = () => Math.trunc(infectionsByRequestedTime(factor) * 0.05);
 
   // Ventilation function
-  const casesForVentilatorsByRequestedTime = () => infectionsByRequestedTime(factor) * 0.02;
+  const casesForVentByRequestedTime = () => Math.trunc(infectionsByRequestedTime(factor) * 0.02);
 
   // dollarIn Flight FUnction
   const dollarsInFlight = () => {
     const regData = data.region;
-    const dailyIncomePerCensus = regData.avgDailyIncomePopulation;
-    return infectionsByRequestedTime(factor) * dailyIncomePerCensus * regData.avgDailyIncomeInUSD;
+    return Math.trunc(infectionsByRequestedTime(factor)
+      * regData.avgDailyIncomePopulation * regData.avgDailyIncomeInUSD);
   };
 
   // return module functions
@@ -51,7 +51,7 @@ const Estimator = ({ data, factor }) => {
     severeCasesByRequestedTime,
     hospitalBedsByRequestedTime,
     casesForICUByRequestedTime,
-    casesForVentilatorsByRequestedTime,
+    casesForVentByRequestedTime,
     dollarsInFlight
   };
 };
@@ -68,7 +68,7 @@ const covid19ImpactEstimator = (data) => {
     severeCasesByRequestedTime: impactEstimator.severeCasesByRequestedTime(),
     hospitalBedsByRequestedTime: impactEstimator.hospitalBedsByRequestedTime(),
     casesForICUByRequestedTime: impactEstimator.casesForICUByRequestedTime(),
-    casesForVentilatorsByRequestedTime: impactEstimator.casesForVentilatorsByRequestedTime(),
+    casesForVentilatorsByRequestedTime: impactEstimator.casesForVentByRequestedTime(),
     dollarsInFlight: impactEstimator.dollarsInFlight()
   };
 
@@ -79,7 +79,7 @@ const covid19ImpactEstimator = (data) => {
     severeCasesByRequestedTime: severeImpactEstimator.severeCasesByRequestedTime(),
     hospitalBedsByRequestedTime: severeImpactEstimator.hospitalBedsByRequestedTime(),
     casesForICUByRequestedTime: severeImpactEstimator.casesForICUByRequestedTime(),
-    casesForVentilatorsByRequestedTime: severeImpactEstimator.casesForVentilatorsByRequestedTime(),
+    casesForVentilatorsByRequestedTime: severeImpactEstimator.casesForVentByRequestedTime(),
     dollarsInFlight: severeImpactEstimator.dollarsInFlight()
   };
   return {
