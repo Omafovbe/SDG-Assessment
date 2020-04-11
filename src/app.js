@@ -28,6 +28,7 @@ app.use('/api/v1/on-covid-19', estimationRoutes);
 
 // Request / Response log cycle
 app.get('/api/v1/on-covid-19/logs', (req, res) => {
+  res.set('Content-Type', 'text/plain');
   res.sendFile(path.join(`${__dirname}/access.log`));
 });
 
