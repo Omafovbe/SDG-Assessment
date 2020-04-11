@@ -27,7 +27,7 @@ app.use(morgan(':method \t :url \t\t :status \t :response-time ms', { stream: ac
 app.use('/api/v1/on-covid-19', estimationRoutes);
 
 // Request / Response log cycle
-app.get('/logs', (req, res) => {
+app.get('/api/v1/on-covid-19/logs', (req, res) => {
   res.sendFile(path.join(`${__dirname}/access.log`));
 });
 
