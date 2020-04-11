@@ -68,7 +68,8 @@ const covid19ImpactEstimator = (data) => {
     severeCasesByRequestedTime: impactEstimator.severeCasesByRequestedTime(),
     hospitalBedsByRequestedTime: impactEstimator.hospitalBedsByRequestedTime(),
     casesForICUByRequestedTime: impactEstimator.casesForICUByRequestedTime(),
-    casesForVentilatorsByRequestedTime: impactEstimator.casesForVentilatorsByRequestedTime()
+    casesForVentilatorsByRequestedTime: impactEstimator.casesForVentilatorsByRequestedTime(),
+    dollarsInFlight: impactEstimator.dollarsInFlight()
   };
 
   // Severe Impact estimation object
@@ -78,7 +79,8 @@ const covid19ImpactEstimator = (data) => {
     severeCasesByRequestedTime: severeImpactEstimator.severeCasesByRequestedTime(),
     hospitalBedsByRequestedTime: severeImpactEstimator.hospitalBedsByRequestedTime(),
     casesForICUByRequestedTime: severeImpactEstimator.casesForICUByRequestedTime(),
-    casesForVentilatorsByRequestedTime: severeImpactEstimator.casesForVentilatorsByRequestedTime()
+    casesForVentilatorsByRequestedTime: severeImpactEstimator.casesForVentilatorsByRequestedTime(),
+    dollarsInFlight: severeImpactEstimator.dollarsInFlight()
   };
   return {
     data,
@@ -87,4 +89,4 @@ const covid19ImpactEstimator = (data) => {
   };
 };
 
-export default covid19ImpactEstimator;
+module.exports = covid19ImpactEstimator;
