@@ -39,15 +39,15 @@ router.post('/:header?', inputDataValidation, (req, res) => {
 
   // Display the result
   const input = req.body;
-  const { data, estimate } = covid19ImpactEstimator(input);
+  const { data, impact, severeImpact } = covid19ImpactEstimator(input);
 
   // Display the result in XML if xml header was requested.
   if (req.params.header === 'xml') {
     res.set('Content-Type', 'application/xml');
-    res.send(builder.buildObject({ data, estimate }));
+    res.send(builder.buildObject({ data, impact, severeImpact }));
   }
 
-  return res.status(200).json({ data, estimate });
+  return res.status(200).json({ data, impact, severeImpact });
 });
 
 module.exports = router;
