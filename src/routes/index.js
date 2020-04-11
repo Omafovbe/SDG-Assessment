@@ -8,6 +8,7 @@ const router = express.Router();
 // Validate input data
 const inputDataValidation = [
   check('region.avgDailyIncomePopulation').isDecimal(),
+  check('region.avgDailyIncomeInUSD').isNumeric(),
   check('periodType').isString(),
   check('timeToElapse').isNumeric(),
   check('reportedCases').isNumeric(),
