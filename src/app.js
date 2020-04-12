@@ -20,7 +20,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // Morgan to log method entries and status to file on the server
-app.use(morgan(':method \t :url \t\t :status \t :response-time ms', { stream: accessLogStream }));
+app.use(morgan(':method \t :url \t :status \t :response-time[2] ms\n', { stream: accessLogStream }));
 
 
 // Estimation API Routes
